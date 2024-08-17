@@ -1,5 +1,5 @@
 import express from "express"
-const {handleHelloWorld , HellUser , handleCreateNewUer} = require ("../controller/homeController")
+const {handleHelloWorld ,handleUpdateUser, handleUserPage , handleCreateNewUer ,handleDeleteUser ,getUpdateUserPage} = require ("../controller/homeController")
 const router = express.Router();
 
 
@@ -7,9 +7,15 @@ const router = express.Router();
 const initWebRouter = (app) => {
     router.get ("/" , handleHelloWorld)
     
-    router.get ("/user" , HellUser)
+    router.get ("/user" , handleUserPage)
 
     router.post ("/user/create-user" ,handleCreateNewUer)
+
+    router.post("/delete-user/:id", handleDeleteUser )
+
+    router.get ("/update-user/:id" , getUpdateUserPage)
+
+    router.post ("/user/update-user" , handleUpdateUser)
 
     
 
