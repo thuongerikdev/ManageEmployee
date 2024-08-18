@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}))
 
 //test connection
-connection()
+// connection()
 
 //config view engine
 configViewEngine(app);
