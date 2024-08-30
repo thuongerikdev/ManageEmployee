@@ -14,11 +14,11 @@ const hashUserPassWord = (userPassword) => {
 const createNewUser = async (email, password, username) => {
     let hashPass = hashUserPassWord(password)
 
-    try {
-        await db.User.create({
+    try { 
+        await db.User.create({ 
             username: username,
             email: email,
-            password: hashPass
+            password: hashPass 
         })
     } catch (err) {
         console.log(err)

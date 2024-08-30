@@ -1,7 +1,7 @@
 import express from "express"
 const {handleHelloWorld ,handleUpdateUser, handleUserPage , handleCreateNewUer ,handleDeleteUser ,getUpdateUserPage} = require ("../controller/homeController")
 const router = express.Router();
-
+const {testAPI} = require('../controller/apiController')
 
 
 const initWebRouter = (app) => {
@@ -16,6 +16,8 @@ const initWebRouter = (app) => {
     router.get ("/update-user/:id" , getUpdateUserPage)
 
     router.post ("/user/update-user" , handleUpdateUser)
+
+    router.get("/test/api" , testAPI)
 
     
 
