@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './login.scss'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify';
-import {loginUSer} from '../../services/userService'
+import { loginUser } from '../../services/userService'
 
 
 const Login = (props) => {
@@ -11,55 +11,68 @@ const Login = (props) => {
     const [valueLogin, setValueLogin] = useState('')
     const [password, setPassword] = useState('')
     const defaultObjValid = {
-        isValidValueLogin : true ,
-        isValidPassword  : true
+        isValidValueLogin: true,
+        isValidPassword: true
     }
 
-    const [objValidInput , setObjValidInput] = useState(defaultObjValid)
+    const [objValidInput, setObjValidInput] = useState(defaultObjValid)
 
-    const handleLogin =  async () => {
+    const handleLogin = async () => {
         setObjValidInput(defaultObjValid)
 
-        if(!valueLogin){
-            setObjValidInput({...defaultObjValid, isValidValueLogin : false})
+        if (!valueLogin) {
+            setObjValidInput({ ...defaultObjValid, isValidValueLogin: false })
             toast.error('please enter your email or your phone number')
             return false
         }
-        if(!password){
-            setObjValidInput({...defaultObjValid , isValidPassword: false})
+        if (!password) {
+            setObjValidInput({ ...defaultObjValid, isValidPassword: false })
             toast.error('please enter your password')
             return false
         }
-        console.log(valueLogin , password)
-        
-        let respone = await loginUSer(valueLogin , password);
+        console.log(valueLogin, password)
 
-      
+        let respone = await loginUser(valueLogin, password);
 
-        if (respone && respone.data && +respone.data.EC === 0){
+
+
+        if (respone && respone.data && +respone.data.EC === 0) {
             let data = {
-                isAuthenticated : true ,
-                token : 'faketoken'
+                isAuthenticated: true,
+                token: 'faketoken'
             }
-            sessionStorage.setItem('account' , JSON.stringify (data));
+            sessionStorage.setItem('account', JSON.stringify(data));
             history.push('/users')
+            window.location.reload()
         }
-        if(respone && respone.data && +respone.data.EC !== 0){
+        if (respone && respone.data && +respone.data.EC !== 0) {
             toast.error(respone.data.EM)
         }
 
-        console.log("check respone" ,respone.data)
+        console.log("check respone", respone.data)
 
-     
+
     }
-    
+
 
     const handleCreateNewAccount = () => {
 
         history.push('/register')
     }
 
-    
+    const handlePressEnter = (event) => {
+        if(event.charCode ==13 && event.code =='Enter'){
+            handleLogin();
+        }
+    }
+    useEffect(()=> {
+        let session = sessionStorage.getItem('account'); 
+        if(session){
+            history.push("/")
+            window.location.reload()
+        }
+    } , [])
+
 
     return (
         <div className="login-container ">
@@ -83,16 +96,19 @@ const Login = (props) => {
                             className={objValidInput.isValidValueLogin ? 'form-control' : 'is-invalid form-control'}
                             placeholder='email or your phone number'
                             value={valueLogin}
-                            onChange={(event) => {setValueLogin(event.target.value)}}
+                            onChange={(event) => { setValueLogin(event.target.value) }}
                         />
                         <input
                             type='password'
                             className={objValidInput.isValidPassword ? 'form-control' : 'is-invalid form-control'}
                             placeholder='password'
-                           value={password}
-                           onChange={(event) => {setPassword(event.target.value)}}
+                            value={password}
+                            onChange={(event) => { setPassword(event.target.value) }}
+                            onKeyPress={(event) => handlePressEnter(event)}
+
+
                         />
-                        <button className='btn btn-primary' onClick={()=> handleLogin()}> Login</button>
+                        <button className='btn btn-primary' onClick={() => handleLogin()}> Login</button>
                         <span className='text-center'>
                             <a className='forgot-password' href='#'>Forgot your password</a>
                         </span>

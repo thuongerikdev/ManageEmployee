@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import './register.scss'
 import { useHistory } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify';
-import axios from 'axios'
+import { toast } from 'react-toastify';
+
 import { registerNewUser } from '../../services/userService';
 const Register = (props) => {
 
@@ -57,7 +57,7 @@ const Register = (props) => {
             setobjCheckValid({ ...defaultValidInput, isValidPassword: false })
             return false
         }
-        if (password != confirmPass) {
+        if (password !== confirmPass) {
             toast.error("your password is not the same")
             setobjCheckValid({ ...defaultValidInput, isValidCondirmPass: false })
             return false
@@ -76,7 +76,7 @@ const Register = (props) => {
 
     const handleRegister = async () => {
         let check = isValid()
-        if (check == true) {
+        if (check === true) {
             let response = await registerNewUser(email , phone , username , password)
             let serverData =  response.data
             if(+serverData.EC === 0){
