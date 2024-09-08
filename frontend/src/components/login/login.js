@@ -36,7 +36,7 @@ const Login = (props) => {
 
 
 
-        if (respone && respone.data && +respone.data.EC === 0) {
+        if (respone && respone && +respone.EC === 0) {
             let data = {
                 isAuthenticated: true,
                 token: 'faketoken'
@@ -45,11 +45,11 @@ const Login = (props) => {
             history.push('/users')
             window.location.reload()
         }
-        if (respone && respone.data && +respone.data.EC !== 0) {
-            toast.error(respone.data.EM)
+        if (respone && +respone.EC !== 0) {
+            toast.error(respone.EM)
         }
 
-        console.log("check respone", respone.data)
+        console.log("check respone", respone)
 
 
     }

@@ -140,4 +140,4 @@ const registerNewUSer = async (rawUserData) => {
 }
 
 
-module.exports = { registerNewUSer, handleUserLogin }
+module.exports = { registerNewUSer, handleUserLogin , hashUserPassWord  , checkEmail,checkPhone}

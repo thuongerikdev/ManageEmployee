@@ -3,7 +3,7 @@ import express from "express"
 const router = express.Router();
 const apiController = require("../controller/apiController")
 const userController = require('../controller/userController')
-
+const GroupController = require('../controller/GroupController')
 
 const initAPIRouter = (app) => {
 
@@ -15,6 +15,10 @@ const initAPIRouter = (app) => {
     router.post ('/user/create' , userController.createFunc);
     router.put ('/user/update' , userController.updateFunc) ;
     router.delete('/user/delete' , userController.deleteFunc);
+
+    router.get ('/group/read' , GroupController.readFunc)
+
+
 
 
 

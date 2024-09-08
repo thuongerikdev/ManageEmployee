@@ -39,9 +39,16 @@ const readFunc = async (req, res) => {
         })
     }
 }
-const createFunc = (req, res) => {
+const createFunc = async(req, res) => {
 
     try {
+        let data = await userApiService.createNewUser(req.body)
+        return res.status(200).json({
+            EM: data.EM, //error mesage
+            EC: data.EC, //error code
+            DT: data.DT //data
+        })
+
 
     } catch (error) {
         console.log(error)
@@ -52,8 +59,15 @@ const createFunc = (req, res) => {
         })
     }
 }
-const updateFunc = (req, res) => {
+const updateFunc = async (req, res) => {
     try {
+        let data = await userApiService.updateUser(req.body)
+        return res.status(200).json({
+            EM: data.EM, //error mesage
+            EC: data.EC, //error code
+            DT: data.DT //data
+        })
+
 
     } catch (error) {
         console.log(error)
@@ -65,9 +79,15 @@ const updateFunc = (req, res) => {
     }
 
 }
-const deleteFunc = (req, res) => {
+const deleteFunc =  async (req, res) => {
     try {
-
+        // console.log(req.body.id)
+        let data = await userApiService.deleteUser(req.body.id)
+        return res.status(200).json({
+            EM: data.EM, //error mesage
+            EC: data.EC, //error code
+            DT: data.DT //data
+        })
     } catch (error) {
         console.log(error)
         return res.status(500).json({
