@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { fetchAllUser, deleteUser } from "../../services/userService";
 import { toast } from 'react-toastify'
@@ -6,6 +6,9 @@ import ReactPaginate from 'react-paginate';
 import ModalDelete from "./ModalDelete";
 import ModalUser from "./ModalUser";
 import './Users.scss'
+// import {UserContext} from "../../context/UserContext"
+
+
 const User = (props) => {
     const [ListUser, setListUser] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
@@ -22,11 +25,18 @@ const User = (props) => {
 
     useEffect(() => {
         fetchUser()
+     
+
     }, [currentPage])
 
+    // const {user} = React.useContext(UserContext)
+    // console.log(user)
+
     const fetchUser = async (page) => {
+        
+
         let respone = await fetchAllUser(currentPage, currentLimit)
-        console.log('check resonpone' , respone)
+        // console.log('check resonpone' , respone)
         if (respone  && respone.EC === 0) {
      
             setTotalPage(respone.DT.totalPage)

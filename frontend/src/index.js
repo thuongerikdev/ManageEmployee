@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import {UserProvider} from './context/UserContext';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import'font-awesome/css/font-awesome.min.css'
+import 'font-awesome/css/font-awesome.min.css'
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

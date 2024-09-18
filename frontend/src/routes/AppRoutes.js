@@ -3,6 +3,9 @@ import Login from "../components/login/login";
 import User from "../components/ManageUsers/Users";
 import Register from '../components/register/register';
 import PrivateRoutes from "./PrivateRoutes";
+import Role from "../components/Role/Role";
+import GroupRole from "../components/group-role/GroupRole";
+import homePage from "../components/homePage/homePage";
 
 
 
@@ -20,6 +23,8 @@ const AppRoutes = (props) => {
             <Switch>
                 <PrivateRoutes path = "/users" component = {User} />
                 <PrivateRoutes path = "/project" component= {Project}/>
+                <PrivateRoutes path = "/roles" component= {Role}/>
+                <PrivateRoutes path = "/group-role" component= {GroupRole}/>
 
                 <Route path="/login">
                     <Login />
@@ -28,7 +33,7 @@ const AppRoutes = (props) => {
                     <Register />
                 </Route>
                 <Route path="/" exact>
-                    home
+                    <homePage/>
                 </Route>
                 <Route path="*">
                     error 404

@@ -54,7 +54,7 @@ const getUserList = async () => {
 
 
 
-    console.log("check new user" , newUser)
+   
     // console.log("check new Role", roles)
 
 

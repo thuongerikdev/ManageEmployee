@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './login.scss'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { loginUser } from '../../services/userService'
+import { UserContext } from '../../context/UserContext';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 const Login = (props) => {
+
+    const {user ,loginContext} = useContext(UserContext)
+
     let history = useHistory();
 
     const [valueLogin, setValueLogin] = useState('')
@@ -30,26 +35,35 @@ const Login = (props) => {
             toast.error('please enter your password')
             return false
         }
-        console.log(valueLogin, password)
+        // console.log(valueLogin, password)
 
         let respone = await loginUser(valueLogin, password);
 
 
 
         if (respone && respone && +respone.EC === 0) {
+            let groupWithRole = respone.DT.groupWithRole
+            let email =  respone.DT.email
+            let username =  respone.DT.username
+            let token = respone.DT.access_token
+
             let data = {
                 isAuthenticated: true,
-                token: 'faketoken'
+                token,
+                account : {groupWithRole ,email , username}
             }
-            sessionStorage.setItem('account', JSON.stringify(data));
+            
+            
+            localStorage.setItem('jwt' , token)
+            loginContext(data)
             history.push('/users')
-            window.location.reload()
+            // window.location.reload()
         }
         if (respone && +respone.EC !== 0) {
             toast.error(respone.EM)
         }
 
-        console.log("check respone", respone)
+        // console.log("check respone", respone)
 
 
     }
@@ -66,12 +80,10 @@ const Login = (props) => {
         }
     }
     useEffect(()=> {
-        let session = sessionStorage.getItem('account'); 
-        if(session){
-            history.push("/")
-            window.location.reload()
+        if(user && user.isAuthenticated){
+            history.push('/')
         }
-    } , [])
+    }, [])
 
 
     return (
@@ -80,7 +92,7 @@ const Login = (props) => {
                 <div className="row px-3 px-sm-0"  >
                     <div className="content-left col-12  d-none col-sm-7 d-sm-block ">
                         <div className='brand'>
-                            thuongerikdev
+                           <Link to='/'>Management</Link> Management 
                         </div>
                         <div className='detail'>
                             thuong dep trai

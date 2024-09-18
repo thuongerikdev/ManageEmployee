@@ -10,13 +10,60 @@
         text-decoration: none;
         font-size: 17px;
     };
-    a:hover {
+    &:hover {
         background-color: #ddd;
         color: black;
     };
+  
     a.active {
         background-color: #04AA6D;
         color: white;
     }
+}
+.nav_header{
+    .bg-header {
+        background-color: #20232a;
+    }
+   
+
+    .navbar-brand{
+        color :#c7ede6 !important ;
+        img {
+            animation: App-logo-spin infinite 20s linear;
+        }
+        @keyframes App-logo-spin {
+            from{
+                transform: rotate(0deg);
+            }
+            to{
+                transform: rotate(360deg);
+            }
+        }
+    }
+    .navbar-nav{
+        a , .nav-link{
+            color : white !important;
+    
+            &:hover{
+                color:#61dafb !important
+            }
+           
+        }
+    }
+    .nav-link{
+        &.active{
+            color :#61dafb !important
+        }
+    }
+    .dropdown-menu {
+        a {
+            color: #212529 !important;
+            &:hover{
+                color:#61dafb !important
+            }
+        }
+        
+    }
+ 
 }
 

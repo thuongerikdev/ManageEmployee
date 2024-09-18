@@ -1,0 +1,11 @@
+.group-role-container {
+    .red {
+        color: red;
+        background: none;
+        /* Ensure no background color */
+        padding: 0;
+        /* Remove any padding */
+        border: none;
+        /* Ensure no border */
+    }
+}

@@ -1,0 +1,23 @@
+.role-container{
+    .actions{
+
+        padding-right:  7px;
+        font-size:  22px;
+        cursor: pointer;
+
+        .add{
+            color : green ;
+            padding-right: 9px;
+        }
+        .delete{
+            color : red
+        }
+    }
+    .table-role{
+        .delete{
+            cursor: pointer;
+            color: red;
+
+        }
+    }
+}

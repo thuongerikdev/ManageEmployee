@@ -1,8 +1,10 @@
-
+require('dotenv').config()
 const bcrypt = require('bcryptjs')
 const db = require('../models/index')
 import { Op } from 'sequelize'
 import { Json } from 'sequelize/lib/utils'
+import {getGroupWithRoles} from './JWTService'
+import {createJWT} from '../middleware/JWTAction'
 const salt = bcrypt.genSaltSync(10)
 
 const hashUserPassWord = (userPassword) => {
@@ -38,7 +40,6 @@ const checkPhone = async (userPhone) => {
 const handleUserLogin = async (rawData) => {
 
     try {
-
         let user = await db.User.findOne({
             where: {
                 [Op.or]: [
@@ -47,26 +48,34 @@ const handleUserLogin = async (rawData) => {
                 ]
             }
         })
-        // console.log("check user" +  user.get({ plain: true }))
-        // console.log("check user" + rawData.password)
-
-
-
         if (user) {
-            console.log ("found user with email/phone ")
 
             let isCorrectPassword = await checkPassword(rawData.password, user.password)
-
             if (isCorrectPassword === true) {
+
+                //test role
+                let groupWithRole = await getGroupWithRoles(user);
+                let payload ={
+                    email : user.email,
+                    groupWithRole,
+                    username : user.username
+                }
+                let token = createJWT(payload)
+
                 return {
                     EM: 'ok',
                     EC: 0,
-                    DT: ''
+                    DT: {
+                        access_token : token,
+                         groupWithRole ,
+                         email : user.email,
+                         username : user.username
+                    }
                 }
             }
            
         }
-        console.log("not found user with email/phone", rawData.valueLogin ,"Password" , rawData.password)
+    
         return {
             EM: 'your email/phone number or password is incorrect',
             EC: 1,
@@ -121,7 +130,9 @@ const registerNewUSer = async (rawUserData) => {
             email: rawUserData.email,
             username: rawUserData.username,
             password: hashPass,
-            phone: rawUserData.phone
+            phone: rawUserData.phone,
+            groupId : 4
+
         })
 
         return {
