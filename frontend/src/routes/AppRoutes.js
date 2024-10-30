@@ -5,7 +5,8 @@ import Register from '../components/register/register';
 import PrivateRoutes from "./PrivateRoutes";
 import Role from "../components/Role/Role";
 import GroupRole from "../components/group-role/GroupRole";
-import homePage from "../components/homePage/homePage";
+import homePage from "../components/homePage/Home";
+import Home from "../components/homePage/Home";
 
 
 
@@ -33,7 +34,7 @@ const AppRoutes = (props) => {
                     <Register />
                 </Route>
                 <Route path="/" exact>
-                    <homePage/>
+                    <Home/>
                 </Route>
                 <Route path="*">
                     error 404

@@ -92,7 +92,7 @@ const Login = (props) => {
                 <div className="row px-3 px-sm-0"  >
                     <div className="content-left col-12  d-none col-sm-7 d-sm-block ">
                         <div className='brand'>
-                           <Link to='/'>Management</Link> Management 
+                           <Link to='/'>Management</Link>
                         </div>
                         <div className='detail'>
                             thuong dep trai
